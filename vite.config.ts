@@ -1,41 +1,76 @@
-import { defineConfig } from 'vite'
+import path from 'path'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import ElementPlus from 'unplugin-element-plus/vite'
+import createVitePlugins from './vite/plugins'
 
 // 共享解析器配置
 const elementPlusResolver = ElementPlusResolver()
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
+export default defineConfig(({ mode, command }) => {
+  const env = loadEnv(mode, process.cwd())
+  const { VITE_APP_ENV } = env
+
+  // 合并自定义插件与新提供的插件
+  const plugins = [
     vue(),
-    // 为 Element Plus 按需引入样式
-    ElementPlus({
-      // options
-    }),
-    // AutoImport 插件配置了自动导入 Vue Composition API 和 Element Plus 组件的能力
+    ElementPlus({}),
     AutoImport({
       resolvers: [elementPlusResolver],
     }),
-    // Components 插件配置了自动按需导入项目中使用的 Vue 组件，包括 Element Plus 组件
     Components({
-      // 搜索 src/components 和 src/layouts 目录下的 Vue 组件
       dirs: ['src/components', 'src/layouts'],
-      // 支持的文件扩展名
       extensions: ['vue'],
-      // 深度搜索组件
       deep: true,
-      // 为自动导入的组件生成 TypeScript 声明
       dts: 'src/components.d.ts',
-      // 只处理 src 目录下的 .vue/.js/.ts 文件
       include: [/\.vue$/, /\.js$/, /\.ts$/],
-      // 排除 node_modules 目录
       exclude: [/node_modules/],
-      // 配置第三方组件库解析器
       resolvers: [elementPlusResolver],
     }),
-  ],
+    ...createVitePlugins(env, command === 'build'),
+  ]
+
+  return {
+    base: VITE_APP_ENV === 'production' ? './' : '/',
+    plugins,
+    resolve: {
+      alias: {
+        '~': path.resolve(__dirname, './'),
+        '@': path.resolve(__dirname, './src'),
+      },
+      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+    },
+    server: {
+      port: 807,
+      host: true,
+      open: true,
+      proxy: {
+        '/dev-api': {
+          target: 'http://localhost:8087',
+          changeOrigin: true,
+          rewrite: (p) => p.replace(/^\/dev-api/, ''),
+        },
+      },
+    },
+    css: {
+      postcss: {
+        plugins: [
+          {
+            postcssPlugin: 'internal:charset-removal',
+            AtRule: {
+              charset: (atRule) => {
+                if (atRule.name === 'charset') {
+                  atRule.remove()
+                }
+              },
+            },
+          },
+        ],
+      },
+    },
+  }
 })

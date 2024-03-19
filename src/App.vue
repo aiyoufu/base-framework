@@ -1,5 +1,8 @@
 <script setup lang="ts">
-// import HelloWorld from './components/HelloWorld.vue'
+import { getTest } from '@/api/test'
+getTest({}).then((res) => {
+  console.log('res ------------', res)
+})
 </script>
 
 <template>
