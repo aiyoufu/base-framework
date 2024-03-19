@@ -7,5 +7,6 @@
   "printWidth": 80,
   "bracketSpacing": true,
   "arrowParens": "always",
-  "jsxSingleQuote": false
+  "jsxSingleQuote": false,
+  "endOfLine": "lf"
 }
