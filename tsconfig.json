@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "baseUrl": ".", // 设置基本目录为项目根目录
+    "paths": {
+      "@/*": ["src/*"] // 将@别名解析到src目录
+    },
+
     /* 基本编译选项 */
     "target": "ES2020", // 指定ECMAScript目标版本
     "module": "ESNext", // 使用的模块系统，ESNext表示最新的
@@ -11,6 +16,8 @@
     "noUnusedLocals": true, // 报告未使用的本地变量
     "noUnusedParameters": true, // 报告未使用的函数参数
     "noFallthroughCasesInSwitch": true, // 防止switch语句的case落空
+    "strictNullChecks": true, // 启用严格null检查
+    "noImplicitReturns": true, // 函数没有返回值时，必须显式返回undefined
 
     /* 模块解析和其他编译选项 */
     "moduleResolution": "node", // 模块解析策略
