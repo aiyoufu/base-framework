@@ -1,26 +1,33 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "skipLibCheck": true,
+    /* 基本编译选项 */
+    "target": "ES2020", // 指定ECMAScript目标版本
+    "module": "ESNext", // 使用的模块系统，ESNext表示最新的
+    "lib": ["ES2020", "DOM", "DOM.Iterable"], // 编译过程中包含的库文件
+    "jsx": "preserve", // JSX代码的处理方式，preserve表示保留以便后续的转换过程处理
 
-    /* Bundler mode */
-    "moduleResolution": "node",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "preserve",
+    /* 类型检查和Linting */
+    "strict": true, // 启用所有严格的类型检查选项
+    "noUnusedLocals": true, // 报告未使用的本地变量
+    "noUnusedParameters": true, // 报告未使用的函数参数
+    "noFallthroughCasesInSwitch": true, // 防止switch语句的case落空
 
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    /* 模块解析和其他编译选项 */
+    "moduleResolution": "node", // 模块解析策略
+    "allowImportingTsExtensions": true, // 允许导入.ts扩展名的文件（非标准选项，可能需要调整）
+    "resolveJsonModule": true, // 允许导入.json文件
+    "isolatedModules": true, // 确保每个文件可以单独编译
+    "useDefineForClassFields": true, // 使用defineProperty定义类字段
+
+    /* 输出和声明文件生成 */
+    "declaration": true, // 生成相应的.d.ts声明文件
+    "allowJs": true, // 允许编译JavaScript文件
+    "emitDeclarationOnly": true, // 仅生成声明文件，不生成JavaScript输出
+    "outDir": "./types", // 指定输出目录
+    "skipLibCheck": true // 跳过库文件的类型检查
   },
   "include": [
+    // 指定要包含在编译中的文件模式列表
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue",
@@ -30,5 +37,8 @@
     "tailwind.config.js",
     "postcss.config.js"
   ],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [
+    // 项目引用，用于组织多个TypeScript项目
+    { "path": "./tsconfig.node.json" }
+  ]
 }
