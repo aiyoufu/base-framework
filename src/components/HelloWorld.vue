@@ -1,16 +1,21 @@
 <script setup lang="ts">
+import router from '@/router'
 import { ref } from 'vue'
 
 defineProps<{ msg: string }>()
 
 const count = ref(0)
+
+const jump = () => {
+  router.push('/home')
+}
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
   <div class="m-4">
     <el-button>Default</el-button>
-    <el-button type="primary">Primary</el-button>
+    <el-button type="primary" @click="jump">Primary</el-button>
     <el-button type="success">Success</el-button>
     <el-button type="info">Info</el-button>
     <el-button type="warning">Warning</el-button>

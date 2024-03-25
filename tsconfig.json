@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": ".", // 设置基本目录为项目根目录
+    // "paths": {
+    //   "@/*": ["src/*"] // 将@别名解析到src目录
+    // },
     "paths": {
-      "@/*": ["src/*"] // 将@别名解析到src目录
+      "@/*": ["./src/*"]
     },
 
     /* 基本编译选项 */
@@ -21,7 +24,6 @@
 
     /* 模块解析和其他编译选项 */
     "moduleResolution": "node", // 模块解析策略
-    "allowImportingTsExtensions": true, // 允许导入.ts扩展名的文件（非标准选项，可能需要调整）
     "resolveJsonModule": true, // 允许导入.json文件
     "isolatedModules": true, // 确保每个文件可以单独编译
     "useDefineForClassFields": true, // 使用defineProperty定义类字段
@@ -39,6 +41,7 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "src/**/*.js",
+    "src/**/*.d.ts",
     "vite.config.ts",
     ".eslintrc.cjs",
     "tailwind.config.js",

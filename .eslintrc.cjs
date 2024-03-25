@@ -26,6 +26,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'vue'],
   rules: {
+    'vue/multi-word-component-names': 'off',
     // 可以在这里添加其他自定义规则
   },
 }
