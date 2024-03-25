@@ -1,11 +1,8 @@
 import { defineConfig, loadEnv } from 'vite'
 import path from 'path'
-// import createVitePlugins from './vite/plugins'
-import AutoImport from 'unplugin-auto-import/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import vue from '@vitejs/plugin-vue'
+import createVitePlugins from './vite/plugins'
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, command }) => {
   const env = loadEnv(mode, process.cwd())
   const { VITE_APP_ENV } = env
 
@@ -14,21 +11,7 @@ export default defineConfig(({ mode }) => {
   return {
     base: VITE_APP_ENV === 'production' ? './' : '/',
     plugins: [
-      vue(),
-      // AutoImport({
-      //   imports: ['vue', '@vueuse/core'],
-      //   resolvers: [ElementPlusResolver()],
-      //   dirs: ['./composables/**'],
-      //   vueTemplate: true,
-      // }),
-      AutoImport({
-        imports: ['vue', 'vue-router', 'pinia'],
-        dts: true, // 生成自动导入的类型声明文件
-        resolvers: [
-          ElementPlusResolver(), // 自动导入 Element Plus 组件
-        ],
-      }),
-      // createVitePlugins(env, command === 'build'), // 使用统一的自动导入配置
+      createVitePlugins(env, command === 'build'), // 使用统一的自动导入配置
     ],
     resolve: {
       alias: {

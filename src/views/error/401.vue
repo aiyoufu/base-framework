@@ -28,17 +28,17 @@
 
 <script setup lang="ts">
 import errImage from '@/assets/401_images/401.gif'
-import { getCurrentInstance, ref } from 'vue'
 
-let { proxy } = getCurrentInstance()
+const router = useRouter()
+const route = useRoute()
 
 const errGif = ref(errImage + '?' + +new Date())
 
 function back() {
-  if (proxy.$route.query.noGoBack) {
-    proxy.$router.push({ path: '/' })
+  if (route.query.noGoBack) {
+    router.push({ path: '/' })
   } else {
-    proxy.$router.go(-1)
+    router.go(-1)
   }
 }
 </script>

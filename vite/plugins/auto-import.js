@@ -12,7 +12,9 @@ export default function createAutoImport() {
     dts: 'src/auto-imports.d.ts', // 生成自动导入的类型声明文件
     resolvers: [
       ElementPlusResolver(), // 自动导入 Element Plus 组件
-      // 这里可以添加其他库的解析器
     ],
+    eslintrc: {
+      enabled: true,
+    },
   })
 }

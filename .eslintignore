@@ -29,7 +29,3 @@ __tests__/
 
 # TypeScript 声明文件
 *.d.ts
-
-# Vue 项目中的自动生成文件
-src/vue-auto-routing.js
-src/vue-auto-imports.d.ts
