@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { getTest } from '@/api/test'
+
+const title = useTitle()
+console.log(title.value) // print current title
+
 getTest({}).then(() => {
   console.log('res ------------')
 })
